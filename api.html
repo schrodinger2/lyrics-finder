@@ -19,6 +19,13 @@
         align-items: center;
         justify-content: flex-start;
       }
+      .error {
+        position: fixed;
+        font-size: 1.7em;
+        font-weight: bolder;
+        color: var(--main-theme);
+        top: 20vh;
+      }
       .card {
         margin: 40vh 0 0 0;
         height: 20vh;
@@ -34,19 +41,28 @@
         font-weight: bold;
         margin: 5px 0;
         width: 30vmax;
-        border: none;
+
         background-color: transparent;
-        border-bottom: 1px var(--main-theme) solid;
+
       }
-      input { text-align: center; }
+      input {
+       text-align: center;
+       border: none;
+       border-bottom: 1px var(--main-theme) solid;
+      }
       input:focus, button:focus {
         outline: none;
         border: none;
       }
       button {
+        border: 1px var(--main-theme) solid;
         color: white;
         margin-top: 30px;
         background:var(--main-theme);
+      }
+      button:hover {
+        background-color: transparent;
+        color: var(--main-theme);
       }
       .circle {
         display: flex;
@@ -87,13 +103,13 @@
       .hidden {
         display: none;
       }
-
     </style>
     <title>song lyrics</title>
   </head>
   <body>
     <!-- html -->
     <section class="container">
+      <p class="error hidden">Error loading the lyrics</p>
       <div class="card tog">
         <input type="text" id="artist" value="" placeholder="Artist" required>
         <input type="text" id="title" value="" placeholder="Title" required>
@@ -108,8 +124,8 @@
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
         <style type="text/css">
-        	.st0{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
-        	.st1{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:10;}
+        	.st0{fill:none;stroke:#fff;stroke-width:2;stroke-miterlimit:10;}
+        	.st1{fill:none;stroke:#fff;stroke-width:2;stroke-miterlimit:10;}
         </style>
         <line class="st0" x1="26.5" y1="27.5" x2="18.5" y2="19.5"/>
         <circle class="st1" cx="14" cy="15" r="6.5"/>
@@ -124,13 +140,17 @@
           const artist = document.querySelector('#artist').value;
           const url = `https://api.lyrics.ovh/v1/${artist}/${title}`;
           const res = await fetch(url)
+          if (res.status == 404) { document.querySelector('.error').classList.remove("hidden")};
           const response = await res.json()
-          const song = response.lyrics.split('\n');
-          for (var i = 0; i < song.length; i++) {
-            document.querySelector('.text').innerHTML +=  `<p class="lyrics-line">${song[i]}</p>`;
-          };
-          document.querySelectorAll('.tog')[0].classList.add("hidden");
-          document.querySelectorAll('.lyrics-title')[0].classList.remove("hidden");
+          if (res.status == 200) {
+            const song = response.lyrics.split('\n');
+            for (var i = 0; i < song.length; i++) {
+              document.querySelector('.text').innerHTML +=  `<p class="lyrics-line">${song[i]}</p>`;
+            };
+            document.querySelectorAll('.tog')[0].classList.add("hidden");
+            document.querySelectorAll('.lyrics-title')[0].classList.remove("hidden");
+            document.querySelector('.error').classList.add("hidden");
+          }
         }
         function toggling() {
           document.querySelectorAll('.tog')[0].classList.toggle("hidden");
