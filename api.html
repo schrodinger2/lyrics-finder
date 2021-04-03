@@ -41,18 +41,15 @@
           const artist = document.querySelector('#artist').value;
           const url = `https://api.lyrics.ovh/v1/${artist}/${title}`;
           const res = await fetch(url)
-          setTimeout(() => {
-            if (!res) {
-              // ERROR
-              document.querySelector('.error').classList.remove("hidden")
-            }
-          }, 1500);
           if (res.status == 404) {
             // ERROR
             document.querySelector('.error').classList.remove("hidden")
           }else if (res.status == 200) {
-            const response = await res.json()
             //working fine
+            const response = await res.json()
+            // to clear the last lyrics if there was one
+            document.querySelector('.text').innerHTML =  null;
+            // to add the new lyrics
             const song = response.lyrics.split('\n');
             for (var i = 0; i < song.length; i++) {
               document.querySelector('.text').innerHTML +=  `<p class="lyrics-line">${song[i]}</p>`;
