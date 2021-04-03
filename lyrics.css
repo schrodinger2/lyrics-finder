@@ -39,7 +39,7 @@ input, button {
   font-size: 1em;
   font-weight: bold;
   margin: 5px 0;
-  width: 30vmax;
+  width: 35vw;
   background-color: transparent;
 }
 
@@ -54,6 +54,7 @@ input:focus, button:focus {
 }
 
 button {
+  animation: reversed-button-color-shift 0.5s ease-in;
   border: 1px var(--main-theme) solid;
   color: white;
   margin-top: 30px;
@@ -61,11 +62,13 @@ button {
 }
 
 button:hover {
+  animation: button-color-shift 0.5s ease-in;
   background-color: transparent;
   color: var(--main-theme);
 }
 
 .circle {
+  animation: reversed-color-shift 0.5s ease-in;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,10 +82,20 @@ button:hover {
 }
 
 .circle:hover {
-  background-color: white;
+  animation: color-shift 0.5s ease-in;
+  background-color: #fff;
+}
+
+.st0, .st1 {
+  animation: reversed-svg-color-shift 0.5s ease-in;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
 }
 
 .circle:hover .st0, .circle:hover .st1 {
+  animation: svg-color-shift 0.5s ease-in;
   stroke: var(--main-theme);
 }
 
@@ -109,4 +122,69 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+/* animations */
+@keyframes color-shift {
+  0% {
+    background-color: var(--main-theme);
+  }
+
+  100% {
+    background-color: #fff;
+  }
+}
+
+@keyframes reversed-color-shift {
+  0% {
+    background-color: #fff;
+  }
+
+  100% {
+    background-color: var(--main-theme);
+  }
+}
+
+@keyframes svg-color-shift {
+  0% {
+    stroke: #fff;
+  }
+
+  100% {
+    stroke: var(--main-theme);
+  }
+}
+
+@keyframes reversed-svg-color-shift {
+  0% {
+    stroke: var(--main-theme);
+  }
+
+  100% {
+    stroke: #fff;
+  }
+}
+
+@keyframes button-color-shift {
+  0% {
+    background-color: var(--main-theme);
+    color: white;
+  }
+
+  100% {
+    background-color: transparent;
+    color: var(--main-theme);
+  }
+}
+
+@keyframes reversed-button-color-shift {
+  0% {
+    background-color: transparent;
+    color: var(--main-theme);
+  }
+
+  100% {
+    background-color: var(--main-theme);
+    color: white;
+  }
 }
