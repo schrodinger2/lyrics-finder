@@ -39,7 +39,7 @@ input, button {
   font-size: 1em;
   font-weight: bold;
   margin: 5px 0;
-  width: 35vw;
+  width: 35vmax;
   background-color: transparent;
 }
 
