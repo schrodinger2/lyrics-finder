@@ -2,108 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <!-- css -->
-    <style media="screen">
-      * {
-        font-family: sans-serif;
-        margin: 0;
-      }
-      :root {
-        --main-theme: #00aaaa;
-      }
-      .container {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-      }
-      .error {
-        position: fixed;
-        font-size: 1.7em;
-        font-weight: bolder;
-        color: var(--main-theme);
-        top: 20vh;
-      }
-      .card {
-        margin: 40vh 0 0 0;
-        height: 20vh;
-        width: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-      }
-      input, button {
-        line-height: 25px;
-        font-size: 1em;
-        font-weight: bold;
-        margin: 5px 0;
-        width: 30vmax;
-
-        background-color: transparent;
-
-      }
-      input {
-       text-align: center;
-       border: none;
-       border-bottom: 1px var(--main-theme) solid;
-      }
-      input:focus, button:focus {
-        outline: none;
-        border: none;
-      }
-      button {
-        border: 1px var(--main-theme) solid;
-        color: white;
-        margin-top: 30px;
-        background:var(--main-theme);
-      }
-      button:hover {
-        background-color: transparent;
-        color: var(--main-theme);
-      }
-      .circle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        background: var(--main-theme);
-        border-radius: 50%;
-      }
-      .circle:hover {
-        background-color: white;
-      }
-      .circle:hover .st0, .circle:hover .st1 {
-        stroke:var(--main-theme);
-      }
-      .text {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 5vh 0 0 0;
-      }
-      .lyrics-title {
-        font-weight: bolder;
-        font-size: 1.3em;
-        color: var(--main-theme);
-      }
-      .lyrics-line {
-        margin: 2vh 0 0 0;
-        font-size: 1em;
-        font-weight: 550;
-      }
-      .hidden {
-        display: none;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./lyrics.css">
     <title>song lyrics</title>
   </head>
   <body>
@@ -121,7 +22,7 @@
       </div>
       <div class="circle" onclick="toggling()">
         <!-- svg -->
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
         <style type="text/css">
         	.st0{fill:none;stroke:#fff;stroke-width:2;stroke-miterlimit:10;}
@@ -140,9 +41,18 @@
           const artist = document.querySelector('#artist').value;
           const url = `https://api.lyrics.ovh/v1/${artist}/${title}`;
           const res = await fetch(url)
-          if (res.status == 404) { document.querySelector('.error').classList.remove("hidden")};
-          const response = await res.json()
-          if (res.status == 200) {
+          setTimeout(() => {
+            if (!res) {
+              // ERROR
+              document.querySelector('.error').classList.remove("hidden")
+            }
+          }, 1500);
+          if (res.status == 404) {
+            // ERROR
+            document.querySelector('.error').classList.remove("hidden")
+          }else if (res.status == 200) {
+            const response = await res.json()
+            //working fine
             const song = response.lyrics.split('\n');
             for (var i = 0; i < song.length; i++) {
               document.querySelector('.text').innerHTML +=  `<p class="lyrics-line">${song[i]}</p>`;
@@ -152,6 +62,7 @@
             document.querySelector('.error').classList.add("hidden");
           }
         }
+
         function toggling() {
           document.querySelectorAll('.tog')[0].classList.toggle("hidden");
         }

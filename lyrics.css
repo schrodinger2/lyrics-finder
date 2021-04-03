@@ -1,0 +1,112 @@
+* {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+:root {
+  --main-theme: #00aaaa;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.error {
+  position: fixed;
+  font-size: 1.7em;
+  font-weight: bolder;
+  color: var(--main-theme);
+  top: 20vh;
+}
+
+.card {
+  margin: 40vh 0 0 0;
+  height: 20vh;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+input, button {
+  line-height: 25px;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 5px 0;
+  width: 30vmax;
+  background-color: transparent;
+}
+
+input {
+  text-align: center;
+  border: none;
+  border-bottom: 1px var(--main-theme) solid;
+}
+
+input:focus, button:focus {
+  outline: none;
+}
+
+button {
+  border: 1px var(--main-theme) solid;
+  color: white;
+  margin-top: 30px;
+  background: var(--main-theme);
+}
+
+button:hover {
+  background-color: transparent;
+  color: var(--main-theme);
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: var(--main-theme);
+  border-radius: 50%;
+}
+
+.circle:hover {
+  background-color: white;
+}
+
+.circle:hover .st0, .circle:hover .st1 {
+  stroke: var(--main-theme);
+}
+
+.text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5vh 0 0 0;
+}
+
+.lyrics-title {
+  font-weight: bolder;
+  font-size: 1.3em;
+  color: var(--main-theme);
+}
+
+.lyrics-line {
+  margin: 2vh 0 0 0;
+  font-size: 1em;
+  font-weight: 550;
+}
+
+.hidden {
+  display: none;
+}
