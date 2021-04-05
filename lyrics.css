@@ -54,7 +54,7 @@ input:focus, button:focus {
 }
 
 button {
-  animation: reversed-button-color-shift 0.5s ease-in;
+  animation: button-color-shift 0.5s reverse;
   border: 1px var(--main-theme) solid;
   color: white;
   margin-top: 30px;
@@ -68,7 +68,7 @@ button:hover {
 }
 
 .circle {
-  animation: reversed-color-shift 0.5s ease-in;
+  animation: color-shift 0.5s reverse;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +87,7 @@ button:hover {
 }
 
 .st0, .st1 {
-  animation: reversed-svg-color-shift 0.5s ease-in;
+  animation: svg-color-shift 0.5s reverse;
   fill: none;
   stroke: #fff;
   stroke-width: 2;
@@ -135,16 +135,6 @@ button:hover {
   }
 }
 
-@keyframes reversed-color-shift {
-  0% {
-    background-color: #fff;
-  }
-
-  100% {
-    background-color: var(--main-theme);
-  }
-}
-
 @keyframes svg-color-shift {
   0% {
     stroke: #fff;
@@ -152,16 +142,6 @@ button:hover {
 
   100% {
     stroke: var(--main-theme);
-  }
-}
-
-@keyframes reversed-svg-color-shift {
-  0% {
-    stroke: var(--main-theme);
-  }
-
-  100% {
-    stroke: #fff;
   }
 }
 
@@ -174,17 +154,5 @@ button:hover {
   100% {
     background-color: transparent;
     color: var(--main-theme);
-  }
-}
-
-@keyframes reversed-button-color-shift {
-  0% {
-    background-color: transparent;
-    color: var(--main-theme);
-  }
-
-  100% {
-    background-color: var(--main-theme);
-    color: white;
   }
 }
